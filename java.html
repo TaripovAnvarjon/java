@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Java™ Qo'llanmasi — OOP Tushunchalari (O'zbek tilida)</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000;background:#fff;line-height:1.6}
+
+#top-bar{background:#c00;color:#fff;padding:7px 16px;display:flex;align-items:center;gap:14px}
+#top-bar .logo{font-size:20px;font-weight:900;letter-spacing:1px;color:#fff}
+#top-bar .subtitle{font-size:13px;opacity:.9}
+
+#breadcrumb{background:#f5f5f5;border-bottom:1px solid #ccc;padding:5px 16px;font-size:12px;color:#555}
+#breadcrumb a{color:#00478d;text-decoration:none}
+
+#page-wrap{display:flex;max-width:1100px;margin:0 auto}
+
+#sidebar{width:215px;min-width:215px;border-right:1px solid #ccc;background:#f9f9f9;font-size:13px;padding:12px 0}
+.toc-title{font-weight:bold;color:#c00;padding:6px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #ddd;margin-bottom:4px}
+#sidebar ul{list-style:none}
+#sidebar ul li a{display:block;padding:5px 14px;color:#00478d;text-decoration:none;border-left:3px solid transparent;font-size:13px;cursor:pointer}
+#sidebar ul li a:hover{background:#e8f0f8;border-left-color:#c00;color:#c00}
+#sidebar ul li a.active{background:#e8f0f8;border-left-color:#c00;color:#c00;font-weight:bold}
+
+#content{flex:1;padding:20px 30px 50px;min-width:0}
+
+.trail-header{font-size:12px;color:#555;margin-bottom:6px}
+.trail-header a{color:#00478d;text-decoration:none}
+
+.nav-arrows{display:flex;gap:8px;font-size:12px;margin-bottom:16px}
+.nav-arrows button{color:#00478d;border:1px solid #aac;padding:3px 10px;border-radius:3px;background:#f0f4fb;cursor:pointer;font-size:12px}
+.nav-arrows button:hover:not(:disabled){background:#dce8f5}
+.nav-arrows button:disabled{opacity:.35;cursor:default}
+
+.notice-box{background:#fff8e1;border:1px solid #f0c040;border-left:4px solid #f0a000;padding:10px 14px;font-size:13px;margin-bottom:22px;border-radius:2px}
+.notice-box a{color:#00478d}
+
+h1{font-size:22px;color:#c00;border-bottom:2px solid #c00;padding-bottom:7px;margin-bottom:16px;font-weight:bold}
+h2{font-size:17px;color:#00478d;margin:26px 0 8px;border-bottom:1px solid #cce;padding-bottom:4px}
+h3{font-size:15px;color:#333;margin:18px 0 6px;font-weight:bold}
+p{margin-bottom:12px}
+a{color:#00478d}
+
+pre{background:#f4f4f4;border:1px solid #ccc;border-left:4px solid #00478d;padding:12px 16px;font-family:'Courier New',Courier,monospace;font-size:13px;margin:12px 0 18px;overflow-x:auto;border-radius:2px;line-height:1.6}
+code{font-family:'Courier New',Courier,monospace;background:#eef;padding:1px 4px;border-radius:2px;font-size:13px}
+
+.tip-box{background:#e8f5e9;border:1px solid #81c784;border-left:4px solid #2e7d32;padding:10px 14px;margin:14px 0;font-size:13px;border-radius:2px}
+.tip-box strong{color:#2e7d32}
+.example-box{background:#e3f2fd;border:1px solid #90caf9;border-left:4px solid #1565c0;padding:10px 14px;margin:14px 0;font-size:13px;border-radius:2px}
+.example-box strong{color:#1565c0}
+
+hr.sep{border:none;border-top:1px solid #ddd;margin:28px 0 20px}
+
+.page{display:none}
+.page.active{display:block}
+
+.qa-q{font-weight:bold;color:#00478d;margin:14px 0 4px}
+.qa-a{padding-left:16px;margin-bottom:10px}
+
+#footer{background:#f5f5f5;border-top:2px solid #c00;text-align:center;padding:10px;font-size:11px;color:#666;margin-top:40px}
+#footer a{color:#00478d;text-decoration:none;margin:0 5px}
+</style>
+</head>
+<body>
+
+<div id="top-bar">
+  <div class="logo">ORACLE</div>
+  <div class="subtitle">Java™ Qo'llanmasi &mdash; O'zbek tilidagi tarjima</div>
+</div>
+
+<div id="breadcrumb">
+  <a href="#">Bosh sahifa</a> &rsaquo;
+  <a href="#">Java Tilini O'rganish</a> &rsaquo;
+  <span id="bc-current">Darsga kirish</span>
+</div>
+
+<div id="page-wrap">
+
+  <nav id="sidebar">
+    <div class="toc-title">Mundarija</div>
+    <ul>
+      <li><a id="nav0" onclick="goTo(0)">Darsga kirish</a></li>
+      <li><a id="nav1" onclick="goTo(1)">Ob'ekt nima?</a></li>
+      <li><a id="nav2" onclick="goTo(2)">Klass nima?</a></li>
+      <li><a id="nav3" onclick="goTo(3)">Meros nima?</a></li>
+      <li><a id="nav4" onclick="goTo(4)">Interfeys nima?</a></li>
+      <li><a id="nav5" onclick="goTo(5)">Paket nima?</a></li>
+      <li><a id="nav6" onclick="goTo(6)">Savol va Mashqlar</a></li>
+    </ul>
+  </nav>
+
+  <main id="content">
+
+    <div class="trail-header">
+      <strong>Yo'l:</strong> <a href="#">Java Tilini O'rganish</a> &rsaquo; <strong id="trail-page">Darsga kirish</strong>
+    </div>
+
+    <div class="nav-arrows">
+      <button id="btn-prev" onclick="prevPage()">&#171; Oldingi</button>
+      <button onclick="goTo(0)">Yo'l</button>
+      <button id="btn-next" onclick="nextPage()">Keyingi &#187;</button>
+    </div>
+
+    <div class="notice-box">
+      &#9888; Bu qo'llanma JDK 8 uchun yozilgan. Yangi versiyalar uchun
+      <a href="https://dev.java/learn/" target="_blank">dev.java</a> saytiga qarang.
+      Java SE 9 va undan keyingi o'zgarishlar uchun
+      <a href="https://docs.oracle.com/pls/topic/lookup?ctx=en/java/javase&id=java_language_changes" target="_blank">Java Language Changes</a> sahifasini ko'ring.
+    </div>
+
+    <!-- ══════════════════════════════════════
+         0 — Kirish
+    ══════════════════════════════════════ -->
+    <div class="page active" id="page0">
+      <h1>Dars: Ob'ektga Yo'naltirilgan Dasturlash Tushunchalari</h1>
+      <p>Agar siz ilgari ob'ektga yo'naltirilgan dasturlash tilidan foydalanmagan bo'lsangiz, kod yozishni boshlashdan oldin bir necha asosiy tushunchalarni o'rganishingiz kerak bo'ladi. Bu dars sizga <strong>ob'ektlar, klasslar, meros, interfeyslar va paketlar</strong> haqida ma'lumot beradi. Har bir tushuncha haqiqiy hayot bilan bog'liq holda tushuntiriladi, shu bilan birga Java dasturlash tilining sintaksisiga kirish ham beriladi.</p>
+
+      <h2><a onclick="goTo(1)" style="cursor:pointer">Ob'ekt nima?</a></h2>
+      <p>Ob'ekt — o'zaro bog'liq holat va xatti-harakatdan iborat dasturiy to'plam. Dasturiy ob'ektlar ko'pincha kundalik hayotdagi real narsalarni modellash uchun ishlatiladi. Bu bo'lim ob'ekt ichida holat va xatti-harakat qanday saqlanishini, ma'lumotlarni yashirish (data encapsulation) tushunchasini va bunday yondashuv afzalliklarini tushuntiradi.</p>
+
+      <h2><a onclick="goTo(2)" style="cursor:pointer">Klass nima?</a></h2>
+      <p>Klass — ob'ektlar yaratish uchun ishlatiladigan qolip yoki shablon. Bu bo'lim real hayotdagi ob'ektning holati va xatti-harakatini modellaydigan klassni ta'riflaydi. Hatto oddiy klass ham holat va xatti-harakatni qanday aniq ifodalashini ko'rsatadi.</p>
+
+      <h2><a onclick="goTo(3)" style="cursor:pointer">Meros nima?</a></h2>
+      <p>Meros — dasturiy ta'minotni tartibga solish va tuzish uchun kuchli va tabiiy mexanizm. Bu bo'lim klasslar o'zlarining yuqori klasslaridan holat va xatti-harakatni qanday meros qilib olishini va Java tilining oddiy sintaksisi yordamida bir klassdan boshqa klass qanday hosil qilinishini tushuntiradi.</p>
+
+      <h2><a onclick="goTo(4)" style="cursor:pointer">Interfeys nima?</a></h2>
+      <p>Interfeys — klass va tashqi dunyo o'rtasidagi shartnoma. Klass interfeysni amalga oshirganda, u o'sha interfeys e'lon qilgan xatti-harakatlarni bajarishga va'da beradi. Bu bo'lim oddiy interfeysni ta'riflaydi va uni amalga oshiradigan klass uchun qanday o'zgarishlar kerakligini tushuntiradi.</p>
+
+      <h2><a onclick="goTo(5)" style="cursor:pointer">Paket nima?</a></h2>
+      <p>Paket — klasslar va interfeyslarni mantiqiy tarzda tartibga solish uchun ishlatiladigan nom maydoni. Kodni paketlarga joylashtirganda katta dasturiy loyihalarni boshqarish osonlashadi. Bu bo'lim nima uchun foydali ekanligini tushuntiradi va Java platformasi taqdim etadigan API bilan tanishtiradi.</p>
+
+      <h2><a onclick="goTo(6)" style="cursor:pointer">Savol va Mashqlar</a></h2>
+      <p>Bu bo'limdagi savol va mashqlardan foydalanib, ob'ektlar, klasslar, meros, interfeyslar va paketlar haqidagi tushunchalaringizni sinab ko'ring.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         1 — Ob'ekt nima?
+    ══════════════════════════════════════ -->
+    <div class="page" id="page1">
+      <h1>Ob'ekt nima?</h1>
+      <p>Ob'ektlar ob'ektga yo'naltirilgan texnologiyani tushunishning kaliti hisoblanadi. Atrofingizga qarang — real hayotdagi ob'ektlarning ko'plab misollarini topasiz: itingiz, stolingiz, televizoringiz, velosipedingiz. Real hayotdagi ob'ektlarda ikkita umumiy xususiyat bor: ularda <strong>holat</strong> va <strong>xatti-harakat</strong> mavjud.</p>
+
+      <div class="example-box">
+        <strong>Misol — It:</strong><br>
+        Holati: ismi, rangi, zoti, ochmi yoki to'qmi<br>
+        Xatti-harakati: hurish, narsani olib kelish, dum chayqash
+      </div>
+      <div class="example-box">
+        <strong>Misol — Velosiped:</strong><br>
+        Holati: joriy tezlik, joriy panjara raqami, joriy aylanma tezlik<br>
+        Xatti-harakati: panjara almashtirish, aylanma tezlikni o'zgartirish, tormoz bosish
+      </div>
+
+      <p>Haqiqiy hayotdagi ob'ektni aniqlash ob'ektga yo'naltirilgan dasturlash tarzida fikr yuritishni boshlashning ajoyib usuli. Hozir atrofingizga qarang va ko'rgan har bir ob'ekt uchun o'zingizdan ikki savol bering: <em>"Bu ob'ekt qanday holatlarda bo'lishi mumkin?"</em> va <em>"Bu ob'ekt qanday xatti-harakatni bajara oladi?"</em></p>
+      <p>Siz shunda real hayotdagi ob'ektlar murakkablik jihatidan farqlanishini ko'rasiz: stol chirog'ingizda faqat ikkita holat (yoniq, o'chiq) va ikkita xatti-harakat bo'lishi mumkin, radiola esa ko'proq holatlar (ovoz balandligi, joriy stansiya) va xatti-harakatlarni o'z ichiga oladi.</p>
+
+      <h2>Dasturiy ob'ektlar</h2>
+      <p>Dasturiy ob'ektlar ham kontseptual jihatdan real hayotdagi ob'ektlarga o'xshaydi: ularda ham holat va bog'liq xatti-harakat mavjud. Ob'ekt o'z holatini <strong>maydonlarda (fields)</strong>, xatti-harakatini esa <strong>metodlarda (methods)</strong> saqlaydi. Metodlar ob'ektning ichki holatini boshqaradi va ob'ektlar o'rtasidagi muloqotning asosiy mexanizmi bo'lib xizmat qiladi.</p>
+
+      <h2>Ma'lumotlarni yashirish (Data Encapsulation)</h2>
+      <p>Ichki holatni yashirish va barcha muloqotni faqat ob'ektning metodlari orqali amalga oshirishni talab qilish — <strong>ma'lumotlarni yashirish (data encapsulation)</strong> deb ataladi. Bu ob'ektga yo'naltirilgan dasturlashning asosiy tamoyillaridan biridir.</p>
+      <p>Misol uchun, velosipedda faqat 6 ta panjara bo'lsa, panjarani o'zgartiruvchi metod 1 dan kichik yoki 6 dan katta qiymatni qabul qilishdan bosh tortishi mumkin. Bu tashqaridan keluvchi noto'g'ri qiymatlardan himoya qiladi.</p>
+
+      <div class="tip-box">
+        <strong>&#128161; Afzalliklari:</strong><br>
+        &#8226; <strong>Modullilik</strong> — ob'ektning kodi boshqalardan mustaqil yoziladi va saqlanadi.<br>
+        &#8226; <strong>Ma'lumotlarni yashirish</strong> — faqat metodlar orqali murojaat, ichki holat himoyalangan.<br>
+        &#8226; <strong>Qayta foydalanish</strong> — ob'ektni dasturning boshqa qismlarida ishlatsa bo'ladi.<br>
+        &#8226; <strong>Sozlash qulayligi</strong> — muammo topilsa, ob'ektni alohida tuzatish mumkin.
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         2 — Klass nima?
+    ══════════════════════════════════════ -->
+    <div class="page" id="page2">
+      <h1>Klass nima?</h1>
+      <p>Haqiqiy hayotda ko'pincha bir xil turdagi ko'plab alohida ob'ektlar uchraydi. Masalan, dunyoda minglab velosipedlar mavjud — hammasi bir xil chizma asosida qurilgan va bir xil qismlardan iborat. Ob'ektga yo'naltirilgan dasturlashda biz sizning velosipedingi <em>velosipedlar klassi</em>ning bir <strong>namunasi (instance)</strong> deb aytamiz.</p>
+      <p><strong>Klass</strong> — ob'ektlar yaratish uchun ishlatiladigan qolip yoki shablon. Quyidagi klass velosipedni modellaydi:</p>
+
+      <pre>class Bicycle {
+
+    // Velosipedning holati
+    int cadence = 0;
+    int speed = 0;
+    int gear = 1;
+
+    // Velosipedning xatti-harakati
+    void changeCadence(int newValue) {
+         cadence = newValue;
+    }
+
+    void changeGear(int newValue) {
+         gear = newValue;
+    }
+
+    void speedUp(int increment) {
+         speed = speed + increment;
+    }
+
+    void applyBrakes(int decrement) {
+         speed = speed - decrement;
+    }
+
+    void printStates() {
+         System.out.println("cadence:" + cadence +
+             " speed:" + speed +
+             " gear:" + gear);
+    }
+}</pre>
+
+      <p>Java tilining sintaksisi sizga yangi tuyulishi mumkin, lekin bu klassning dizayni velosiped ob'ektlari haqidagi oldingi muhokamaga asoslanadi. <code>cadence</code>, <code>speed</code> va <code>gear</code> maydonlari ob'ektning holatini, <code>changeCadence</code>, <code>changeGear</code>, <code>speedUp</code> va boshqa metodlar esa tashqi dunyo bilan muloqotini ifodalaydi.</p>
+      <p><code>Bicycle</code> klassida <code>main</code> metodi yo'q — bu to'liq dastur emas, faqat velosiped ob'ektlarini yaratish uchun qolip. Ob'ektlarni yaratish va ulardan foydalanish vazifasi boshqa klassga yuklatilgan.</p>
+      <p>Quyidagi <code>BicycleDemo</code> klassi ikkita alohida <code>Bicycle</code> ob'ektini yaratadi va ularning metodlarini chaqiradi:</p>
+
+      <pre>class BicycleDemo {
+    public static void main(String[] args) {
+
+        // Ikkita Bicycle ob'ekti yaratish
+        Bicycle bike1 = new Bicycle();
+        Bicycle bike2 = new Bicycle();
+
+        // bike1 ni boshqarish
+        bike1.changeCadence(50);
+        bike1.speedUp(10);
+        bike1.changeGear(2);
+        bike1.printStates();
+
+        // bike2 ni boshqarish
+        bike2.changeCadence(50);
+        bike2.speedUp(10);
+        bike2.changeGear(2);
+        bike2.changeCadence(40);
+        bike2.speedUp(10);
+        bike2.changeGear(3);
+        bike2.printStates();
+    }
+}</pre>
+
+      <p>Ushbu sinov natijasi ikki ob'ektning bir-biridan mustaqil holatga ega ekanini ko'rsatadi:</p>
+      <pre>cadence:50  speed:10  gear:2
+cadence:40  speed:20  gear:3</pre>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         3 — Meros nima?
+    ══════════════════════════════════════ -->
+    <div class="page" id="page3">
+      <h1>Meros (Inheritance) nima?</h1>
+      <p>Har xil turdagi ob'ektlar ba'zida bir-biriga ma'lum miqdorda o'xshash bo'ladi. Tog' velosipedlari, yo'l velosipedlari va tandem velosipedlari, masalan, hammasi velosipedning umumiy xususiyatlarini (joriy tezlik, joriy aylanma tezlik, joriy panjara raqami) baham ko'radi. Lekin har birida farqli xususiyatlar ham bor: tandem velosipedida ikki o'rindiq va ikki rul bor; yo'l velosipedida egilgan rul; ba'zi tog' velosipedlarida past peredachani ta'minlovchi qo'shimcha tishli halqa mavjud.</p>
+      <p>Ob'ektga yo'naltirilgan dasturlash klasslarning umumiy holat va xatti-harakatni boshqa klasslardan meros qilib olishiga imkon beradi. Ushbu misolda <code>Bicycle</code> endi <code>MountainBike</code>, <code>RoadBike</code> va <code>TandemBike</code> klasslarining <strong>yuqori klassi (superclass)</strong> bo'ladi.</p>
+
+      <pre>class MountainBike extends Bicycle {
+
+    // MountainBike'ga xos yangi maydon va metodlar
+    // shu yerga yoziladi
+
+}</pre>
+
+      <p>Bu <code>MountainBike</code> ga <code>Bicycle</code> ning barcha maydon va metodlarini beradi, shu bilan birga o'ziga xos xususiyatlarini alohida ifodalash imkonini qoldiradi. Bu quyi klass kodini o'qishni osonlashtiradi. Biroq har bir yuqori klass ta'riflaydigan holat va xatti-harakatni to'g'ri hujjatlashtirish muhim — chunki bu kod quyi klassning manba faylida ko'rinmaydi.</p>
+
+      <div class="tip-box">
+        <strong>&#128161; Java tilida meros qoidasi:</strong><br>
+        Har bir klass faqat <strong>bitta</strong> bevosita yuqori klassga ega bo'la oladi — bu <strong>yagona meros (single inheritance)</strong> deyiladi. Istisno faqat <code>Object</code> klassi: uning yuqori klassi yo'q. Har bir yuqori klassning esa cheksiz miqdorda quyi klassi bo'lishi mumkin.
+      </div>
+
+      <h2>Meros zanjiri</h2>
+      <p>Klasslar klasslardan, ular boshqa klasslardan hosil bo'lishi mumkin — va hokazo, oxir-oqibat eng yuqori klass — <code>Object</code> gacha. Bunday klass meros zanjiri bo'ylab <code>Object</code> gacha bo'lgan barcha klasslarning avlodi deb hisoblanadi.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         4 — Interfeys nima?
+    ══════════════════════════════════════ -->
+    <div class="page" id="page4">
+      <h1>Interfeys (Interface) nima?</h1>
+      <p>Siz allaqachon bilganingizdek, ob'ektlar o'zlarining ochiq metodlari orqali tashqi dunyo bilan muloqot qiladi. Metodlar ob'ektning tashqi dunyo bilan interfeysini shakllantiradi. Masalan, televizoringizning old tomonidagi tugmalar — siz bilan uning ichidagi elektr sxema orasidagi interfeys. Siz televisorni yoqish yoki o'chirish uchun "power" tugmasini bosasiz.</p>
+      <p>Java tilida <strong>interfeys</strong> — bu klass va tashqi dunyo o'rtasidagi <em>shartnoma (contract)</em>. Klass interfeysni amalga oshirganda (<code>implements</code>), u o'sha interfeys e'lon qilgan barcha xatti-harakatlarni bajarishga va'da beradi. Bu shartnomani kompilyator qurilish vaqtida nazorat qiladi.</p>
+
+      <p>Velosiped uchun interfeys quyidagicha ko'rinishi mumkin:</p>
+      <pre>interface Bicycle {
+
+    //  aylanma tezlikni qo'shish (rpm)
+    void changeCadence(int newValue);
+
+    void changeGear(int newValue);
+
+    void speedUp(int increment);
+
+    void applyBrakes(int decrement);
+}</pre>
+
+      <p>Bu interfeysni amalga oshirish uchun klassning nomi o'zgartiriladi — <code>ACMEBicycle</code> deb nomlangan, va <code>implements Bicycle</code> qo'shiladi:</p>
+
+      <pre>class ACMEBicycle implements Bicycle {
+
+    int cadence = 0;
+    int speed = 0;
+    int gear = 1;
+
+    // Kompilyator endi changeCadence, changeGear,
+    // speedUp va applyBrakes metodlarining barchasi
+    // mavjudligini tekshiradi. Agar birontasi
+    // yetishmasa — kompilyatsiya muvaffaqiyatsiz tugaydi.
+
+    public void changeCadence(int newValue) {
+         cadence = newValue;
+    }
+
+    public void changeGear(int newValue) {
+         gear = newValue;
+    }
+
+    public void speedUp(int increment) {
+         speed = speed + increment;
+    }
+
+    public void applyBrakes(int decrement) {
+         speed = speed - decrement;
+    }
+
+    public void printStates() {
+         System.out.println("cadence:" + cadence +
+             " speed:" + speed +
+             " gear:" + gear);
+    }
+}</pre>
+
+      <div class="tip-box">
+        <strong>&#128161; Eslatma:</strong> <code>ACMEBicycle</code> klassini kompilyatsiya qilish uchun amalga oshirilgan interfeys metodlarining boshiga <code>public</code> kalit so'zini qo'shish kerak. Sababi keyinchalik "Klasslar va Ob'ektlar" va "Interfeyslar va Meros" bo'limlarida tushuntiriladi.
+      </div>
+
+      <p>Interfeysni amalga oshirish klass o'z xatti-harakati haqida rasmiyroq bo'lib qolishiga imkon beradi. Agar klass interfeysni amalga oshirishini e'lon qilsa, interfeysdagi barcha metodlar klass manba faylida mavjud bo'lishi shart — aks holda kompilyatsiya muvaffaqiyatsiz tugaydi.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         5 — Paket nima?
+    ══════════════════════════════════════ -->
+    <div class="page" id="page5">
+      <h1>Paket (Package) nima?</h1>
+      <p><strong>Paket</strong> — o'zaro bog'liq klasslar va interfeyslar to'plamini tartibga soluvchi nom maydoni. Paketlarni kompyuteringizdagi turli papkalar kabi tasavvur qilish mumkin: HTML sahifalarni bir papkada, rasmlarni boshqa papkada, dastur va skriptlarni yana boshqa papkada saqlashingiz mumkin.</p>
+      <p>Java dasturlash tilida yozilgan dasturiy ta'minot yuzlab yoki minglab alohida klasslardan iborat bo'lishi mumkin. Shuning uchun bog'liq klasslar va interfeyslarni paketlarga joylashtirish orqali tartibda saqlash maqsadga muvofiq.</p>
+
+      <h2>Java Platformasining API'si</h2>
+      <p>Java platformasi o'z dasturlaringizda foydalanish uchun mos bo'lgan ulkan sinf kutubxonasini (paketlar to'plami) taqdim etadi. Ushbu kutubxona <strong>Application Programming Interface (API)</strong> — ya'ni <strong>Dasturlash Interfeysi</strong> deb ataladi. Uning paketlari umumiy dasturlash vazifalarini ifodalaydi:</p>
+
+      <div class="example-box">
+        <strong>API'dan misollar:</strong><br>
+        &#8226; <code>String</code> ob'ekti — matn satrlari holati va xatti-harakatini o'z ichiga oladi.<br>
+        &#8226; <code>File</code> ob'ekti — dasturga fayl tizimidagi faylni yaratish, o'chirish, solishtirish yoki o'zgartirishga imkon beradi.<br>
+        &#8226; <code>Socket</code> ob'ekti — tarmoq rozetkasini yaratish va ishlatishni ta'minlaydi.<br>
+        &#8226; Turli GUI ob'ektlari — tugmalar, tekisliklar va boshqa grafik interfeys elementlarini boshqaradi.
+      </div>
+
+      <p>Haqiqiy dasturlash vazifalaringizni amalga oshirishda mavjud Java platformasi kodlari bilan o'zingizning kodlaringizni birgalikda ishlatishingiz mumkin.</p>
+
+      <div class="tip-box">
+        <strong>&#128161; API hujjatlari:</strong><br>
+        <a href="https://docs.oracle.com/javase/8/docs/api/index.html" target="_blank">Java Platform API Spetsifikatsiyasi</a> — barcha paketlar, interfeyslar, klasslar, maydonlar va metodlarning to'liq ro'yxatini o'z ichiga oladi. Dasturchi sifatida bu sahifa siz uchun eng muhim ma'lumot manbaiga aylanadi — uni brauzeringizga xatchoʻp qilib qo'ying.
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         6 — Savol va Mashqlar
+    ══════════════════════════════════════ -->
+    <div class="page" id="page6">
+      <h1>Savol va Mashqlar: OOP Tushunchalari</h1>
+
+      <h2>Savollar</h2>
+
+      <div class="qa-q">1. Haqiqiy hayotdagi ob'ektlar dasturiy ob'ektlarga o'xshashligi nimadan iborat?</div>
+      <div class="qa-a">Ikkalasi ham <strong>holat</strong> va <strong>xatti-harakat</strong>ga ega. Dasturiy ob'ekt holatini maydonlarda (fields), xatti-harakatini esa metodlarda (methods) saqlaydi.</div>
+
+      <div class="qa-q">2. Holat va xatti-harakat o'rtasidagi farq nima? Ikkitadan misol keltiring.</div>
+      <div class="qa-a">
+        <strong>Holat</strong> — ob'ektning hozirgi qiymatlari. Misol: it — ismi, rangi; velosiped — joriy tezligi.<br>
+        <strong>Xatti-harakat</strong> — ob'ekt bajara oladigan amallar. Misol: it — hurish; velosiped — tormoz bosish.
+      </div>
+
+      <div class="qa-q">3. Stol chirog'ini dasturiy ob'ekt sifatida ifodalang. Uning holati va xatti-harakatini aniqlang.</div>
+      <div class="qa-a">
+        <strong>Holati:</strong> yoniq yoki o'chiq, yorug'lik darajasi (agar sozlanishi mumkin bo'lsa).<br>
+        <strong>Xatti-harakati:</strong> yoqish, o'chirish, yorug'likni oshirish yoki kamaytirish.
+      </div>
+
+      <div class="qa-q">4. Klass nima?</div>
+      <div class="qa-a">Klass — ob'ektlar yaratish uchun ishlatiladigan qolip yoki shablon. U ob'ektning holatini (maydonlar) va xatti-harakatini (metodlar) ta'riflaydi.</div>
+
+      <div class="qa-q">5. Haqiqiy hayotdagi ob'ektlarni (masalan, it yoki velosiped) modellashda klasslar qanday foydali?</div>
+      <div class="qa-a">Klasslar haqiqiy narsalarning holati va xatti-harakatini dastur ichida aniq ko'rinishda ifodalash imkonini beradi. Bir klassdan ko'plab mustaqil ob'ektlar yaratilishi mumkin.</div>
+
+      <div class="qa-q">6. Meros (inheritance) nima?</div>
+      <div class="qa-a">Meros — bir klassning boshqa klassdan uning barcha maydon va metodlarini qabul qilishi. <code>extends</code> kalit so'zi ishlatiladi. Java tilida yagona meros qo'llaniladi.</div>
+
+      <div class="qa-q">7. Interfeys (interface) nima?</div>
+      <div class="qa-a">Interfeys — klass va tashqi dunyo o'rtasidagi shartnoma. Klass interfeysni amalga oshirganda, interfeysdagi barcha metodlarni bajarishga va'da beradi; bu shartnomani kompilyator nazorat qiladi.</div>
+
+      <div class="qa-q">8. Paket (package) nima?</div>
+      <div class="qa-a">Paket — klasslar va interfeyslarni mantiqiy tarzda tartibga solish uchun ishlatiladigan nom maydoni. Katta loyihalarda kodni boshqarishni osonlashtiradi.</div>
+
+      <hr class="sep">
+      <h2>Mashqlar</h2>
+
+      <div class="qa-q">Mashq 1</div>
+      <div class="qa-a">Ushbu darsning boshida kuzatgan real hayotdagi ob'ektlaringiz uchun yangi klasslar yarating. Sintaksisni eslay olmasangiz, <code>Bicycle</code> klassiga qarang.</div>
+
+      <div class="qa-q">Mashq 2</div>
+      <div class="qa-a">Yuqorida yaratgan har bir yangi klass uchun uning xatti-harakatini ta'riflovchi interfeys yarating, so'ngra klassni shu interfeysni amalga oshirishga (<code>implements</code>) majbur qiling. Bir yoki ikkita metodni yozmay qoldiring va kompilyatsiya qilishga urinib ko'ring — xato xabari qanday ko'rinadi?</div>
+
+      <div class="tip-box">
+        <strong>&#128161; Javoblarni tekshirish:</strong>
+        <a href="https://docs.oracle.com/javase/tutorial/java/concepts/QandE/answers.html" target="_blank">Rasmiy saytda javoblarni ko'rish (ingliz tilida) &#8599;</a>
+      </div>
+    </div>
+
+    <hr class="sep">
+    <div class="nav-arrows">
+      <button id="btn-prev2" onclick="prevPage()">&#171; Oldingi</button>
+      <button onclick="goTo(0)">Yo'l</button>
+      <button id="btn-next2" onclick="nextPage()">Keyingi &#187;</button>
+    </div>
+
+  </main>
+</div>
+
+<div id="footer">
+  <a href="#">Oracle haqida</a> |
+  <a href="#">Biz bilan bog'laning</a> |
+  <a href="#">Yuridik ma'lumotlar</a> |
+  <a href="#">Foydalanish shartlari</a>
+  <br><br>
+  Asl manba: <a href="https://docs.oracle.com/javase/tutorial/java/concepts/" target="_blank">docs.oracle.com/javase/tutorial/java/concepts</a>
+  &nbsp;&mdash;&nbsp; Copyright &copy; 1995, 2024 Oracle and/or its affiliates. Barcha huquqlar himoyalangan.
+</div>
+
+<script>
+const TITLES = [
+  "Darsga kirish",
+  "Ob\u2019ekt nima?",
+  "Klass nima?",
+  "Meros nima?",
+  "Interfeys nima?",
+  "Paket nima?",
+  "Savol va Mashqlar"
+];
+const TOTAL = 7;
+let cur = 0;
+
+function goTo(n) {
+  document.getElementById('page' + cur).classList.remove('active');
+  document.getElementById('nav'  + cur).classList.remove('active');
+  cur = n;
+  document.getElementById('page' + cur).classList.add('active');
+  document.getElementById('nav'  + cur).classList.add('active');
+  document.getElementById('bc-current').textContent  = TITLES[cur];
+  document.getElementById('trail-page').textContent  = TITLES[cur];
+  refresh();
+  window.scrollTo(0, 0);
+}
+
+function nextPage() { if (cur < TOTAL - 1) goTo(cur + 1); }
+function prevPage() { if (cur > 0)         goTo(cur - 1); }
+
+function refresh() {
+  var atStart = cur === 0, atEnd = cur === TOTAL - 1;
+  document.getElementById('btn-prev').disabled  = atStart;
+  document.getElementById('btn-prev2').disabled = atStart;
+  document.getElementById('btn-next').disabled  = atEnd;
+  document.getElementById('btn-next2').disabled = atEnd;
+}
+
+// Boshlang'ich holat
+document.getElementById('nav0').classList.add('active');
+refresh();
+</script>
+</body>
+</html>
